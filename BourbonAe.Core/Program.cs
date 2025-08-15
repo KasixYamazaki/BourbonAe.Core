@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using Serilog;
 using BourbonAe.Core.Presentation.Filters;
-using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
+using BourbonAe.Core.Services.Features.AESJ1110;
 using BourbonAe.Core.Services.Html;
+using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Time;
+using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 // Entry point for the BourbonAe.Core ASP.NET Core MVC application.
 // This file sets up the web host, configures services, and defines the HTTP request pipeline.
@@ -33,6 +34,8 @@ builder.Services.AddSingleton<IExcelExporter, ExcelExporter>();
 builder.Services.AddSingleton<IPdfService, PdfService>();   // QuestPDF ÇégÇ§èÍçá
 builder.Services.AddSingleton<IHtmlParserService, HtmlParserService>();
 builder.Services.AddSingleton<IZipService, ZipService>();
+
+builder.Services.AddScoped<IAesj1110Service, Aesj1110Service>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
