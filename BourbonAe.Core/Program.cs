@@ -1,10 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using BourbonAe.Core.Services.Logging;
+using BourbonAe.Core.Services.Compression;
+using BourbonAe.Core.Services.Export;
+using BourbonAe.Core.Services.Html;
+using BourbonAe.Core.Services.Time;
 
 // Entry point for the BourbonAe.Core ASP.NET Core MVC application.
 // This file sets up the web host, configures services, and defines the HTTP request pipeline.
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 標準ロギング最小構成
+builder.Services.AddLogging();
 
 // Configure Serilog for logging (replacement for log4net).  Serilog reads its
 // configuration from appsettings.json and writes logs to the console by default.
@@ -16,6 +24,14 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .Enrich.FromLogContext()
         .WriteTo.Console();
 });
+
+// Utilities
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
+builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+builder.Services.AddSingleton<IExcelExporter, ExcelExporter>();
+builder.Services.AddSingleton<IPdfService, PdfService>();  // QuestPDF を使う場合
+builder.Services.AddSingleton<IHtmlParserService, HtmlParserService>();
+builder.Services.AddSingleton<IZipService, ZipService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
