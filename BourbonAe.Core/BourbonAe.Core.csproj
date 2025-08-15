@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- Target .NET 8 for ASP.NET Core MVC -->
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- NuGet dependencies. Versions are left unspecified so the latest compatible versions
+       will be resolved when restoring packages. These libraries replace older WebForms
+       dependencies such as AjaxControlToolkit, DotNetZip and log4net with modern
+       equivalents for ASP.NET Core. -->
+  <ItemGroup>
+    <!-- Database provider -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <!-- Runtime compilation for Razor views (replacement for AjaxMin/Runtime compilation) -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
+    <!-- Logging (replacement for log4net) -->
+    <PackageReference Include="Serilog.AspNetCore" />
+    <!-- Excel and document handling -->
+    <PackageReference Include="ClosedXML" />
+    <PackageReference Include="DocumentFormat.OpenXml" />
+    <!-- HTML parsing -->
+    <PackageReference Include="HtmlAgilityPack" />
+  </ItemGroup>
+
+</Project>
