@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using BourbonAe.Core.Presentation.Filters;
 using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
@@ -29,12 +30,15 @@ builder.Host.UseSerilog((context, services, configuration) =>
 builder.Services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddSingleton<IExcelExporter, ExcelExporter>();
-builder.Services.AddSingleton<IPdfService, PdfService>();  // QuestPDF を使う場合
+builder.Services.AddSingleton<IPdfService, PdfService>();   // QuestPDF を使う場合
 builder.Services.AddSingleton<IHtmlParserService, HtmlParserService>();
 builder.Services.AddSingleton<IZipService, ZipService>();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<AppViewDataFilter>();   // 旧マスターのPage_Load相当
+});
 
 // Enable runtime compilation of Razor views so changes to .cshtml files are
 // reflected without recompiling the application.
