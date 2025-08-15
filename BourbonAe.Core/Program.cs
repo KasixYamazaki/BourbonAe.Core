@@ -1,11 +1,15 @@
-using Microsoft.AspNetCore.Mvc;
-using Serilog;
+using BourbonAe.Core.Data;
 using BourbonAe.Core.Presentation.Filters;
-using BourbonAe.Core.Services.Logging;
+using BourbonAe.Core.Services.Auth;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
 using BourbonAe.Core.Services.Html;
+using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Time;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 // Entry point for the BourbonAe.Core ASP.NET Core MVC application.
 // This file sets up the web host, configures services, and defines the HTTP request pipeline.
@@ -45,14 +49,29 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 
-// Example of registering a DbContext for SQL Server. Replace `ApplicationDbContext`
-// with your actual DbContext class when you implement data access. The
-// connection string name "DefaultConnection" is defined in appsettings.json.
-/*
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
-*/
+
+builder.Services.AddAuthentication(o =>
+{
+    o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(o =>
+{
+    o.LoginPath = "/Account/Login";
+    o.LogoutPath = "/Account/Logout";
+    o.AccessDeniedPath = "/Account/Login";
+    o.SlidingExpiration = true;
+    o.ExpireTimeSpan = TimeSpan.FromHours(8);
+});
+
+// DbContext 登録（既存の ApplicationDbContext を使用）
+builder.Services.AddDbContext<ApplicationDbContext>(o =>
+    o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// ApplicationDbContext を IAppDb として利用（AuthService の最小依存）
+builder.Services.AddScoped<IAppDb>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
+// 認証サービス
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
@@ -67,6 +86,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Endpoints configuration: map controller routes. The default route points
 // to HomeController.Index.
