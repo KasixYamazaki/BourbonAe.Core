@@ -4,6 +4,7 @@ using BourbonAe.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace BourbonAe.Core.Tests
