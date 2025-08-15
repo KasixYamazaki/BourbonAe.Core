@@ -33,7 +33,7 @@ namespace BourbonAe.Core.Services.Export
             foreach (var item in data)
             {
                 for (int col = 0; col < props.Length; col++)
-                    ws.Cell(row, col + 1).Value = props[col].GetValue(item);
+                    ws.Cell(row, col + 1).Value = XLCellValue.FromObject(props[col].GetValue(item));
                 row++;
             }
             ws.Columns().AdjustToContents();
