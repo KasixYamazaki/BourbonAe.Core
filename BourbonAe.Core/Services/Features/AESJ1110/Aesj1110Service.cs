@@ -1,12 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using BourbonAe.Core.Models.AESJ1110;
+using BourbonAe.Core.Data;
 using BourbonAe.Core.Data.Entities;
 namespace BourbonAe.Core.Services.Features.AESJ1110
 {
     public sealed class Aesj1110Service : IAesj1110Service
     {
-        private readonly DbContext _db;
-        public Aesj1110Service(DbContext db) => _db = db;
+        private readonly ApplicationDbContext _db;
+        public Aesj1110Service(ApplicationDbContext db) => _db = db;
         public async Task<IReadOnlyList<Aesj1110Row>> SearchAsync(Aesj1110Filter filter, CancellationToken ct = default)
         {
             IQueryable<Aesj1110Entity> q = _db.Set<Aesj1110Entity>().AsNoTracking();
