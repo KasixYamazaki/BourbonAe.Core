@@ -15,7 +15,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// •W€ƒƒMƒ“ƒOÅ¬\¬
+// æ¨™æº–ãƒ­ã‚®ãƒ³ã‚°æœ€å°æ§‹æˆ
 builder.Services.AddLogging();
 
 // Configure Serilog for logging (replacement for log4net).  Serilog reads its
@@ -33,7 +33,12 @@ builder.Host.UseSerilog((context, services, configuration) =>
 builder.Services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddSingleton<IExcelExporter, ExcelExporter>();
-builder.Services.AddSingleton<IPdfService, PdfService>();   // QuestPDF ‚ğg‚¤ê‡
+// FÂƒT[rXÇ‰A[Authorize] LÉ‚
+builder.Services.AddAuthorization();
+// FÂƒ~hEFA
+app.UseAuthorization();
+
+builder.Services.AddSingleton<IPdfService, PdfService>();   // QuestPDF ã‚’ä½¿ã†å ´åˆ
 builder.Services.AddSingleton<IHtmlParserService, HtmlParserService>();
 builder.Services.AddSingleton<IZipService, ZipService>();
 
@@ -42,7 +47,7 @@ builder.Services.AddScoped<IAesj1110Service, Aesj1110Service>();
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
 {
-    options.Filters.Add<AppViewDataFilter>();   // ‹Œƒ}ƒXƒ^[‚ÌPage_Load‘Š“–
+    options.Filters.Add<AppViewDataFilter>();   // æ—§ãƒã‚¹ã‚¿ãƒ¼ã®Page_Loadç›¸å½“
 });
 
 // Enable runtime compilation of Razor views so changes to .cshtml files are
