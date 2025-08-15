@@ -1,0 +1,5 @@
+// builder.Services.AddControllersWithViews(options =>
+// {
+//     options.Filters.Add<BourbonAe.Core.Presentation.Filters.AppViewDataFilter>();
+// });
+// app.UseStaticFiles();
