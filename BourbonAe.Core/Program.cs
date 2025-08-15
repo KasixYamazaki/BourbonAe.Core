@@ -1,3 +1,4 @@
+using BourbonAe.Core.Data;
 using BourbonAe.Core.Presentation.Filters;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
@@ -6,6 +7,7 @@ using BourbonAe.Core.Services.Html;
 using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Time;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 // Entry point for the BourbonAe.Core ASP.NET Core MVC application.
@@ -51,11 +53,9 @@ builder.Services.AddRazorPages()
 // Example of registering a DbContext for SQL Server. Replace `ApplicationDbContext`
 // with your actual DbContext class when you implement data access. The
 // connection string name "DefaultConnection" is defined in appsettings.json.
-/*
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
-*/
 
 var app = builder.Build();
 
