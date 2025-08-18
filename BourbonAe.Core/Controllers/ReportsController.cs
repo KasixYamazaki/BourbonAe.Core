@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BourbonAe.Core.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ReportsController : Controller
     {
         private readonly IReportExportService _export;
