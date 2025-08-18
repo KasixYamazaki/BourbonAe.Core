@@ -10,6 +10,7 @@ using BourbonAe.Core.Services.Features.AEST0010;
 using BourbonAe.Core.Services.Features.AEST0020;
 using BourbonAe.Core.Services.Html;
 using BourbonAe.Core.Services.Logging;
+using BourbonAe.Core.Services.Reporting;
 using BourbonAe.Core.Services.Time;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +78,11 @@ builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<ApplicationDbC
 
 // 認証サービス
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+// 帳票サービス
+builder.Services.AddScoped<IReportExportService, ReportExportService>();
+
+// 画面の機能サービス
 builder.Services.AddScoped<IAesj1110Service, Aesj1110Service>();
 builder.Services.AddScoped<IAemm0010Service, Aemm0010Service>();
 builder.Services.AddScoped<IAekb0040Service, Aekb0040Service>();
