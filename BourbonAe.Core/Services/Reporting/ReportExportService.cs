@@ -23,7 +23,8 @@ namespace BourbonAe.Core.Services.Reporting
             var header = ws.Range(2,1,2,columns.Length);
             header.Style.Font.SetBold(); header.Style.Fill.SetBackgroundColor(XLColor.FromHtml("#f1f3f5"));
             header.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-            header.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin).SetInsideBorder(XLBorderStyleValues.Thin);
+            header.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
+            header.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
             for (int r = 0; r < rows.Count; r++)
             {
                 var row = rows[r];
@@ -32,12 +33,17 @@ namespace BourbonAe.Core.Services.Reporting
                     var col = columns[c];
                     var cell = ws.Cell(r + 3, c + 1);
                     var val = col.Selector(row);
-                    cell.Value = val ?? string.Empty;
+                    cell.Value = XLCellValue.FromObject(val ?? string.Empty);
                     if (!string.IsNullOrWhiteSpace(col.NumberFormat)) cell.Style.NumberFormat.Format = col.NumberFormat;
                     if (col.RightAlign) cell.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
                 }
             }
-            if (rows.Count > 0) ws.Range(3,1,rows.Count+2,columns.Length).Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin).SetInsideBorder(XLBorderStyleValues.Hair);
+            if (rows.Count > 0)
+            {
+                var range = ws.Range(3,1,rows.Count+2,columns.Length);
+                range.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
+                range.Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+            }
             for (int c = 0; c < columns.Length; c++){ if (columns[c].Width is double w) ws.Column(c+1).Width = w; else ws.Column(c+1).AdjustToContents(); }
             ws.SheetView.FreezeRows(2); ws.RangeUsed()?.SetAutoFilter();
             var lastRow = rows.Count + 3;
