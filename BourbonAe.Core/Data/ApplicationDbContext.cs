@@ -15,6 +15,7 @@ public class ApplicationDbContext : DbContext, IAppDb
     public DbSet<Aemm0010Entity> Aemm0010Entities { get; set; } = null!;
     public DbSet<Aekb0040Entity> Aekb0040Entities { get; set; } = null!;
     public DbSet<Aest0010Entity> Aest0010Entities { get; set; } = null!;
+    public DbSet<Aest0020Entity> Aest0020Entities { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,6 +29,6 @@ public class ApplicationDbContext : DbContext, IAppDb
         Aemm0010EntityConfig.Map(modelBuilder);
         Aekb0040EntityConfig.Map(modelBuilder);
         Aest0010EntityConfig.Map(modelBuilder);
+        Aest0020EntityConfig.Map(modelBuilder);
     }
 }
-
