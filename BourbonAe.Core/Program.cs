@@ -72,6 +72,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 
 // ApplicationDbContext を IAppDb として利用（AuthService の最小依存）
 builder.Services.AddScoped<IAppDb>(sp => sp.GetRequiredService<ApplicationDbContext>());
+builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
 // 認証サービス
 builder.Services.AddScoped<IAuthService, AuthService>();
