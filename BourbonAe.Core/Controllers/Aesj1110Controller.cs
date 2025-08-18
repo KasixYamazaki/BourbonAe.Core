@@ -4,7 +4,7 @@ using BourbonAe.Core.Models.AESJ1110;
 using BourbonAe.Core.Services.Features.AESJ1110;
 namespace BourbonAe.Core.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class Aesj1110Controller : Controller
     {
         private readonly IAesj1110Service _service;

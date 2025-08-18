@@ -3,6 +3,10 @@ using BourbonAe.Core.Presentation.Filters;
 using BourbonAe.Core.Services.Auth;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
+using BourbonAe.Core.Services.Features.AEKB0040;
+using BourbonAe.Core.Services.Features.AEMM0010;
+using BourbonAe.Core.Services.Features.AESJ1110;
+using BourbonAe.Core.Services.Features.AEST0010;
 using BourbonAe.Core.Services.Html;
 using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Time;
@@ -49,7 +53,6 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 
-
 builder.Services.AddAuthentication(o =>
 {
     o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -69,9 +72,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 
 // ApplicationDbContext を IAppDb として利用（AuthService の最小依存）
 builder.Services.AddScoped<IAppDb>(sp => sp.GetRequiredService<ApplicationDbContext>());
+builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
 // 認証サービス
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAesj1110Service, Aesj1110Service>();
+builder.Services.AddScoped<IAemm0010Service, Aemm0010Service>();
+builder.Services.AddScoped<IAekb0040Service, Aekb0040Service>();
+builder.Services.AddScoped<IAest0010Service, Aest0010Service>();
 
 var app = builder.Build();
 

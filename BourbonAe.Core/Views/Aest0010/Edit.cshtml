@@ -1,0 +1,13 @@
+@model BourbonAe.Core.Models.AEST0010.Aest0010EditRow
+@{ ViewData["Title"] = "AEST0010 編集"; }
+<h1 class="h5 mb-3">AEST0010 編集</h1>
+<form method="post" class="card p-3 shadow-sm">
+  @Html.AntiForgeryToken()
+  <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+  @if (Model.Id.HasValue) { <input type="hidden" asp-for="Id" /> }
+  <div class="mb-3"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control" /></div>
+  <div class="mb-3"><label asp-for="Date" class="form-label"></label><input asp-for="Date" type="date" class="form-control" /></div>
+  <div class="mb-3"><label asp-for="Status" class="form-label"></label><select asp-for="Status" class="form-select"><option>未処理</option><option>処理済</option></select></div>
+  <div class="mb-3"><label asp-for="Remarks" class="form-label"></label><textarea asp-for="Remarks" class="form-control" rows="3"></textarea></div>
+  <div class="d-flex gap-2"><button class="btn btn-primary">保存</button><a asp-action="Index" class="btn btn-outline-secondary">戻る</a></div>
+</form>
