@@ -1,0 +1,1 @@
+namespace BourbonAe.Core.Models.Reporting{ public sealed class SampleRow{ public int No{get;set;} public string Code{get;set;}=string.Empty; public string Name{get;set;}=string.Empty; public System.DateTime Date{get;set;} public decimal Quantity{get;set;} public decimal Amount{get;set;} public string Status{get;set;}="未処理"; } }
