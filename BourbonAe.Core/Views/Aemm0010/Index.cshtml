@@ -1,0 +1,26 @@
+@model BourbonAe.Core.Models.AEMM0010.Aemm0010PageViewModel
+@{ ViewData["Title"] = "AEMM0010"; }
+<h1 class="h4 mb-3">AEMM0010（マスタ保守）</h1>
+@if (TempData["Message"] is string msg) { <div class="alert alert-success">@msg</div> }
+<form method="get" class="card p-3 mb-3 shadow-sm">
+  <div class="row g-3">
+    <div class="col-md-3"><label asp-for="Filter.Code" class="form-label"></label><input asp-for="Filter.Code" class="form-control" /></div>
+    <div class="col-md-3"><label asp-for="Filter.Name" class="form-label"></label><input asp-for="Filter.Name" class="form-control" /></div>
+    <div class="col-md-3 form-check mt-4"><input asp-for="Filter.ActiveOnly" class="form-check-input" /><label asp-for="Filter.ActiveOnly" class="form-check-label"></label></div>
+    <div class="col-md-3 d-flex align-items-end gap-2"><button class="btn btn-primary">検索</button><a asp-action="Edit" class="btn btn-success">新規</a></div>
+  </div>
+</form>
+<div class="table-responsive">
+  <table class="table table-sm table-hover align-middle">
+    <thead><tr><th>コード</th><th>名称</th><th>有効</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var r in Model.Rows)
+    {
+      <tr>
+        <td>@r.Code</td><td>@r.Name</td><td>@(r.IsActive ? "○" : "×")</td>
+        <td class="text-end"><a asp-action="Edit" asp-route-code="@r.Code" class="btn btn-outline-primary btn-sm">編集</a></td>
+      </tr>
+    }
+    </tbody>
+  </table>
+</div>

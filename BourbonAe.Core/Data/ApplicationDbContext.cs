@@ -12,6 +12,8 @@ public class ApplicationDbContext : DbContext, IAppDb
     public DbSet<Tokui> Tokuis { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Aesj1110Entity> Aesj1110Entities { get; set; } = null!;
+    public DbSet<Aemm0010Entity> Aemm0010Entities { get; set; } = null!;
+    public DbSet<Aekb0040Entity> Aekb0040Entities { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +24,8 @@ public class ApplicationDbContext : DbContext, IAppDb
         modelBuilder.Entity<Tokui>().Property(t => t.TokuiKana).HasColumnName("TOKUI_KANA");
 
         Aesj1110EntityConfig.Map(modelBuilder);
+        Aemm0010EntityConfig.Map(modelBuilder);
+        Aekb0040EntityConfig.Map(modelBuilder);
     }
 }
 

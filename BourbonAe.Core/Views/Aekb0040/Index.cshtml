@@ -1,0 +1,64 @@
+@model BourbonAe.Core.Models.AEKB0040.Aekb0040PageViewModel
+@{ ViewData["Title"] = "AEKB0040"; }
+<h1 class="h4 mb-3">AEKB0040（申請検索・承認）</h1>
+@if (TempData["Message"] is string msg) { <div class="alert alert-info">@msg</div> }
+
+<form method="get" class="card p-3 mb-3 shadow-sm">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-2"><label asp-for="Filter.DeptCode" class="form-label"></label><input asp-for="Filter.DeptCode" class="form-control" /></div>
+    <div class="col-md-3"><label asp-for="Filter.Applicant" class="form-label"></label><input asp-for="Filter.Applicant" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.Status" class="form-label"></label>
+      <select asp-for="Filter.Status" class="form-select"><option value="">(すべて)</option><option>未承認</option><option>承認</option><option>却下</option></select>
+    </div>
+    <div class="col-md-2"><label asp-for="Filter.FromDate" class="form-label"></label><input asp-for="Filter.FromDate" class="form-control" type="date" /></div>
+    <div class="col-md-2"><label asp-for="Filter.ToDate" class="form-label"></label><input asp-for="Filter.ToDate" class="form-control" type="date" /></div>
+    <div class="col-md-1 d-flex gap-2"><button class="btn btn-primary">検索</button></div>
+  </div>
+</form>
+
+<form asp-action="Approve" method="post" class="card p-3 shadow-sm mb-3">
+  @Html.AntiForgeryToken()
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead><tr>
+        <th style="width:2rem;"></th>
+        <th>申請No.</th><th>部門</th><th>申請者</th><th>日付</th><th class="text-end">金額</th><th>状態</th>
+      </tr></thead>
+      <tbody>
+      @if (Model.Rows?.Count > 0)
+      {
+        foreach (var r in Model.Rows)
+        {
+          <tr>
+            <td><input type="checkbox" name="SelectedApplyNos" value="@r.ApplyNo" /></td>
+            <td>@r.ApplyNo</td><td>@r.DeptCode</td><td>@r.Applicant</td>
+            <td>@r.ApplyDate.ToString("yyyy-MM-dd")</td><td class="text-end">@r.Amount.ToString("N0")</td><td>@r.Status</td>
+          </tr>
+        }
+      }
+      else
+      { <tr><td colspan="7" class="text-center text-muted">データがありません</td></tr> }
+      </tbody>
+    </table>
+  </div>
+  <input type="hidden" name="Filter.DeptCode" value="@Model.Filter.DeptCode" />
+  <input type="hidden" name="Filter.Applicant" value="@Model.Filter.Applicant" />
+  <input type="hidden" name="Filter.Status" value="@Model.Filter.Status" />
+  <input type="hidden" name="Filter.FromDate" value="@(Model.Filter.FromDate?.ToString("yyyy-MM-dd"))" />
+  <input type="hidden" name="Filter.ToDate" value="@(Model.Filter.ToDate?.ToString("yyyy-MM-dd"))" />
+  <div class="mt-2 d-flex gap-2">
+    <button class="btn btn-success">承認</button>
+  </div>
+</form>
+
+<form asp-action="Reject" method="post" class="card p-3 shadow-sm">
+  @Html.AntiForgeryToken()
+  <div class="d-flex gap-2">
+    <button class="btn btn-outline-danger">却下</button>
+  </div>
+  <input type="hidden" name="Filter.DeptCode" value="@Model.Filter.DeptCode" />
+  <input type="hidden" name="Filter.Applicant" value="@Model.Filter.Applicant" />
+  <input type="hidden" name="Filter.Status" value="@Model.Filter.Status" />
+  <input type="hidden" name="Filter.FromDate" value="@(Model.Filter.FromDate?.ToString("yyyy-MM-dd"))" />
+  <input type="hidden" name="Filter.ToDate" value="@(Model.Filter.ToDate?.ToString("yyyy-MM-dd"))" />
+</form>
