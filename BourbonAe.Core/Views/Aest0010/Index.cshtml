@@ -1,0 +1,31 @@
+@model BourbonAe.Core.Models.AEST0010.Aest0010PageViewModel
+@{ ViewData["Title"] = "AEST0010"; }
+<h1 class="h4 mb-3">AEST0010</h1>
+@if (TempData["Message"] is string msg) { <div class="alert alert-success">@msg</div> }
+<form method="get" class="card p-3 mb-3 shadow-sm">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3"><label asp-for="Filter.Keyword" class="form-label"></label><input asp-for="Filter.Keyword" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.FromDate" class="form-label"></label><input asp-for="Filter.FromDate" type="date" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.ToDate" class="form-label"></label><input asp-for="Filter.ToDate" type="date" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.Status" class="form-label"></label><select asp-for="Filter.Status" class="form-select"><option value="">(すべて)</option><option>未処理</option><option>処理済</option></select></div>
+    <div class="col-md-3 d-flex gap-2"><button class="btn btn-primary">検索</button><a asp-action="Edit" class="btn btn-success">新規</a></div>
+  </div>
+</form>
+<div class="table-responsive card p-3 shadow-sm">
+  <table class="table table-sm table-hover align-middle">
+    <thead><tr><th>ID</th><th>タイトル</th><th>日付</th><th>状態</th><th>備考</th><th></th></tr></thead>
+    <tbody>
+    @if (Model.Rows?.Count > 0)
+    {
+      foreach (var r in Model.Rows)
+      {
+        <tr>
+          <td>@r.Id</td><td>@r.Title</td><td>@r.Date.ToString("yyyy-MM-dd")</td><td>@r.Status</td><td>@r.Remarks</td>
+          <td class="text-end"><a asp-action="Edit" asp-route-id="@r.Id" class="btn btn-outline-primary btn-sm">編集</a></td>
+        </tr>
+      }
+    }
+    else { <tr><td colspan="6" class="text-center text-muted">データがありません</td></tr> }
+    </tbody>
+  </table>
+</div>

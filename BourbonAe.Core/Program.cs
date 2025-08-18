@@ -3,6 +3,7 @@ using BourbonAe.Core.Presentation.Filters;
 using BourbonAe.Core.Services.Auth;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
+using BourbonAe.Core.Services.Features.AEST0010;
 using BourbonAe.Core.Services.Html;
 using BourbonAe.Core.Services.Logging;
 using BourbonAe.Core.Services.Time;
@@ -48,7 +49,6 @@ builder.Services.AddControllersWithViews(options =>
 // reflected without recompiling the application.
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
-
 
 builder.Services.AddAuthentication(o =>
 {
