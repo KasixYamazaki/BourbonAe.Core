@@ -1,0 +1,55 @@
+@model BourbonAe.Core.Models.AEST0020.Aest0020PageViewModel
+@{ ViewData["Title"] = "AEST0020"; }
+<h1 class="h4 mb-3">AEST0020</h1>
+@if (TempData["Message"] is string msg) { <div class="alert alert-success">@msg</div> }
+
+<form method="get" class="card p-3 mb-3 shadow-sm">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3"><label asp-for="Filter.Keyword" class="form-label"></label><input asp-for="Filter.Keyword" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.FromDate" class="form-label"></label><input asp-for="Filter.FromDate" type="date" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.ToDate" class="form-label"></label><input asp-for="Filter.ToDate" type="date" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Filter.Status" class="form-label"></label>
+      <select asp-for="Filter.Status" class="form-select"><option value="">(すべて)</option><option>未処理</option><option>処理中</option><option>処理済</option></select>
+    </div>
+    <div class="col-md-3 d-flex gap-2"><button class="btn btn-primary">検索</button><a asp-action="Edit" class="btn btn-success">新規</a></div>
+  </div>
+</form>
+
+<form asp-action="BulkStatus" method="post" class="card p-3 shadow-sm mb-3">
+  @Html.AntiForgeryToken()
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead><tr>
+        <th style="width:2rem;"></th><th>ID</th><th>コード</th><th>名称</th><th>日付</th><th class="text-end">数量</th><th class="text-end">金額</th><th>状態</th><th></th>
+      </tr></thead>
+      <tbody>
+      @if (Model.Rows?.Count > 0)
+      {
+        foreach (var r in Model.Rows)
+        {
+          <tr>
+            <td><input type="checkbox" name="SelectedIds" value="@r.Id" /></td>
+            <td>@r.Id</td>
+            <td>@r.Code</td>
+            <td>@r.Name</td>
+            <td>@r.Date.ToString("yyyy-MM-dd")</td>
+            <td class="text-end">@r.Quantity.ToString("N2")</td>
+            <td class="text-end">@r.Amount.ToString("N0")</td>
+            <td>@r.Status</td>
+            <td class="text-end"><a asp-action="Edit" asp-route-id="@r.Id" class="btn btn-outline-primary btn-sm">編集</a></td>
+          </tr>
+        }
+      }
+      else { <tr><td colspan="9" class="text-center text-muted">データがありません</td></tr> }
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex gap-2">
+    <input type="hidden" name="Filter.Keyword" value="@Model.Filter.Keyword" />
+    <input type="hidden" name="Filter.FromDate" value="@(Model.Filter.FromDate?.ToString("yyyy-MM-dd"))" />
+    <input type="hidden" name="Filter.ToDate" value="@(Model.Filter.ToDate?.ToString("yyyy-MM-dd"))" />
+    <input type="hidden" name="Filter.Status" value="@Model.Filter.Status" />
+    <button name="newStatus" value="処理中" class="btn btn-warning">選択を「処理中」に</button>
+    <button name="newStatus" value="処理済" class="btn btn-success">選択を「処理済」に</button>
+  </div>
+</form>
