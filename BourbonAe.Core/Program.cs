@@ -3,6 +3,9 @@ using BourbonAe.Core.Presentation.Filters;
 using BourbonAe.Core.Services.Auth;
 using BourbonAe.Core.Services.Compression;
 using BourbonAe.Core.Services.Export;
+using BourbonAe.Core.Services.Features.AEKB0040;
+using BourbonAe.Core.Services.Features.AEMM0010;
+using BourbonAe.Core.Services.Features.AESJ1110;
 using BourbonAe.Core.Services.Features.AEST0010;
 using BourbonAe.Core.Services.Html;
 using BourbonAe.Core.Services.Logging;
@@ -72,6 +75,10 @@ builder.Services.AddScoped<IAppDb>(sp => sp.GetRequiredService<ApplicationDbCont
 
 // 認証サービス
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAesj1110Service, Aesj1110Service>();
+builder.Services.AddScoped<IAemm0010Service, Aemm0010Service>();
+builder.Services.AddScoped<IAekb0040Service, Aekb0040Service>();
+builder.Services.AddScoped<IAest0010Service, Aest0010Service>();
 
 var app = builder.Build();
 
