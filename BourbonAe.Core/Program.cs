@@ -22,7 +22,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// •W€ƒƒMƒ“ƒOÅ¬\¬
+// æ¨™æº–ãƒ­ã‚®ãƒ³ã‚°æœ€å°æ§‹æˆ
 builder.Services.AddLogging();
 
 // Configure Serilog for logging (replacement for log4net).  Serilog reads its
@@ -40,14 +40,14 @@ builder.Host.UseSerilog((context, services, configuration) =>
 builder.Services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddSingleton<IExcelExporter, ExcelExporter>();
-builder.Services.AddSingleton<IPdfService, PdfService>();   // QuestPDF ‚ğg‚¤ê‡
+builder.Services.AddSingleton<IPdfService, PdfService>();   // QuestPDF ã‚’ä½¿ã†å ´åˆ
 builder.Services.AddSingleton<IHtmlParserService, HtmlParserService>();
 builder.Services.AddSingleton<IZipService, ZipService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
 {
-    options.Filters.Add<AppViewDataFilter>();   // ‹Œƒ}ƒXƒ^[‚ÌPage_Load‘Š“–
+    options.Filters.Add<AppViewDataFilter>();   // æ—§ãƒã‚¹ã‚¿ãƒ¼ã®Page_Loadç›¸å½“
 });
 
 // Enable runtime compilation of Razor views so changes to .cshtml files are
@@ -68,21 +68,21 @@ builder.Services.AddAuthentication(o =>
     o.ExpireTimeSpan = TimeSpan.FromHours(8);
 });
 
-// DbContext “o˜^iŠù‘¶‚Ì ApplicationDbContext ‚ğg—pj
+// DbContext ç™»éŒ²ï¼ˆæ—¢å­˜ã® ApplicationDbContext ã‚’ä½¿ç”¨ï¼‰
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ApplicationDbContext ‚ğ IAppDb ‚Æ‚µ‚Ä—˜—piAuthService ‚ÌÅ¬ˆË‘¶j
+// ApplicationDbContext ã‚’ IAppDb ã¨ã—ã¦åˆ©ç”¨ï¼ˆAuthService ã®æœ€å°ä¾å­˜ï¼‰
 builder.Services.AddScoped<IAppDb>(sp => sp.GetRequiredService<ApplicationDbContext>());
 builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-// ”FØƒT[ƒrƒX
+// èªè¨¼ã‚µãƒ¼ãƒ“ã‚¹
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// ’ •[ƒT[ƒrƒX
+// å¸³ç¥¨ã‚µãƒ¼ãƒ“ã‚¹
 builder.Services.AddScoped<IReportExportService, ReportExportService>();
 
-// ‰æ–Ê‚Ì‹@”\ƒT[ƒrƒX
+// ç”»é¢ã®æ©Ÿèƒ½ã‚µãƒ¼ãƒ“ã‚¹
 builder.Services.AddScoped<IAesj1110Service, Aesj1110Service>();
 builder.Services.AddScoped<IAemm0010Service, Aemm0010Service>();
 builder.Services.AddScoped<IAekb0040Service, Aekb0040Service>();
@@ -113,3 +113,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+public partial class Program { }
