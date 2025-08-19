@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BourbonAe.Core", "BourbonAe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BourbonAe.Core.Tests", "BourbonAe.Core.Tests\BourbonAe.Core.Tests.csproj", "{90ED3F9F-5EC6-E6F6-31D4-D0576E398426}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BourbonAe.Core.Tests.Integration", "BourbonAe.Core.Tests.Integration\BourbonAe.Core.Tests.Integration.csproj", "{681F0002-A1F8-4B2D-8E63-E98C556C060A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BourbonAe.Core.Tests.Unit", "BourbonAe.Core.Tests.Unit\BourbonAe.Core.Tests.Unit.csproj", "{1DBACB42-6F74-49DA-B6CC-929F8D696CD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{90ED3F9F-5EC6-E6F6-31D4-D0576E398426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90ED3F9F-5EC6-E6F6-31D4-D0576E398426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90ED3F9F-5EC6-E6F6-31D4-D0576E398426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{681F0002-A1F8-4B2D-8E63-E98C556C060A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{681F0002-A1F8-4B2D-8E63-E98C556C060A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{681F0002-A1F8-4B2D-8E63-E98C556C060A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{681F0002-A1F8-4B2D-8E63-E98C556C060A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DBACB42-6F74-49DA-B6CC-929F8D696CD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DBACB42-6F74-49DA-B6CC-929F8D696CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DBACB42-6F74-49DA-B6CC-929F8D696CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DBACB42-6F74-49DA-B6CC-929F8D696CD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
