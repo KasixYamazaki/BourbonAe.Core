@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using BourbonAe.Core.Models.Reporting;
 using BourbonAe.Core.Services.Reporting;
+using Xunit;
 
 namespace BourbonAe.Core.Tests.Unit.Reporting
 {

@@ -6,6 +6,7 @@ using BourbonAe.Core.Data.Entities;
 using BourbonAe.Core.Models.AEMM0010;
 using BourbonAe.Core.Services.Features.AEMM0010;
 using BourbonAe.Core.Tests.Unit.Helpers;
+using Xunit;
 
 namespace BourbonAe.Core.Tests.Unit.Services
 {

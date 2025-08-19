@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using BourbonAe.Core.Data;
+using BourbonAe.Core.Services.Auth;
 
 namespace BourbonAe.Core.Tests.Integration.Helpers
 {

@@ -8,6 +8,7 @@ using BourbonAe.Core.Data.Entities;
 using BourbonAe.Core.Models.AESJ1110;
 using BourbonAe.Core.Services.Features.AESJ1110;
 using BourbonAe.Core.Tests.Unit.Helpers;
+using Xunit;
 
 namespace BourbonAe.Core.Tests.Unit.Services
 {

@@ -5,6 +5,7 @@ using FluentAssertions;
 using BourbonAe.Core.Services.Auth;
 using BourbonAe.Core.Controllers;
 using BourbonAe.Core.Models.Auth;
+using Xunit;
 
 namespace BourbonAe.Core.Tests.Unit.Controllers
 {
